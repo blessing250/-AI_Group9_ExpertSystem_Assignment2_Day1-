@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maternal Health SMS Advisor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+      }
+      input,
+      select,
+      button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        color: darkred;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Maternal Health SMS Advisor</h2>
+    <label
+      >Gestational Age (weeks): <input type="number" id="gestationalAge"
+    /></label>
+    <label
+      >Send ANC Reminder?
+      <select id="sendANC">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select></label
+    >
+    <label
+      >Send Intervention SMS?
+      <select id="sendIntervention">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select></label
+    >
+    <label
+      >Send Control Health SMS?
+      <select id="sendControl">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select></label
+    >
+    <button onclick="processSMS()">Check SMS Dispatch</button>
+    <div id="result"></div>
+
+    <script>
+      function processSMS() {
+        let gestationalAge = document.getElementById("gestationalAge").value;
+        let sendANC = document.getElementById("sendANC").value;
+        let sendIntervention =
+          document.getElementById("sendIntervention").value;
+        let sendControl = document.getElementById("sendControl").value;
+        let message = "No SMS Sent.";
+
+        if (sendANC === "yes") {
+          message = `ANC Reminder: Schedule an appointment. Dispatch 2 days prior to ANC date.`;
+        } else if (sendIntervention === "yes" && gestationalAge > 0) {
+          message = `Intervention SMS: Health advice for week ${gestationalAge}.`;
+        } else if (sendControl === "yes") {
+          message = "Control Health SMS: General maternal health advice sent.";
+        }
+
+        document.getElementById("result").innerText = message;
+      }
+    </script>
+  </body>
+</html>
